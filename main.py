@@ -49,34 +49,37 @@ def gera_sudoku():
     data = conexao_api();
     sudoku_api = data['newboard']['grids'][0]['value'];
     dificuldade = data['newboard']['grids'][0]['difficulty'];
-    return sudoku_api, dificuldade;
+    solucao_api = data['newboard']['grids'][0]['solution']
+    sudoku = (sudoku_api, dificuldade, solucao_api);
+    return sudoku;
 
 
-sudoku, dificuldade = gera_sudoku(); 
+sudoku = gera_sudoku(); 
 
 print(""" 
-█████████                 █████          █████                   
-███░░░░░███               ░░███          ░░███                    
-░███    ░░░  █████ ████  ███████   ██████  ░███ █████ █████ ████   
-░░█████████ ░░███ ░███  ███░░███  ███░░███ ░███░░███ ░░███ ░███    
-░░░░░░░░███ ░███ ░███ ░███ ░███ ░███ ░███ ░██████░   ░███ ░███    
-███    ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███░░███  ░███ ░███    
-░░█████████  ░░████████░░████████░░██████  ████ █████ ░░████████""" + "\n\n" + """
-██████████ ██████████ ██████████ ██████████ ██████████ ██████████
+███████╗██╗   ██╗██████╗  ██████╗ ██╗  ██╗██╗   ██╗
+██╔════╝██║   ██║██╔══██╗██╔═══██╗██║ ██╔╝██║   ██║
+███████╗██║   ██║██║  ██║██║   ██║█████╔╝ ██║   ██║
+╚════██║██║   ██║██║  ██║██║   ██║██╔═██╗ ██║   ██║
+███████║╚██████╔╝██████╔╝╚██████╔╝██║  ██╗╚██████╔╝
+╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ 
 """)
 
-print(f"Dificuldade: {dificuldade}\n");
+print(f"Dificuldade: {sudoku[1]}\n");
 
 print("Antes da solução: ");
 
-for linha in sudoku:
+for linha in sudoku[0]:
     print(linha);
-    
 print("\n-------------------------\n");
 
 print("Solucionado: ");
 
-resolve_sudoku(sudoku);
-for linha in sudoku:
+resolve_sudoku(sudoku[0]);
+for linha in sudoku[0]:
     print(linha);
+print("\n-------------------------\n");
 
+print("Solução da API: ")
+for linha in sudoku[2]:
+    print(linha);
